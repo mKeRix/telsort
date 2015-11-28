@@ -1,13 +1,12 @@
 #!/bin/bash
 
-# Variablen deklarieren und auf false setzen
-# Files-Array zur Sammlung der Dateinamen
+# declare and initialize basic variables
 a=false
 s=false
 d=false 
 declare -a files
 
-# While-Schleife, die alle Parameter nach -a, -s oder -d absucht und ansonsten den Parameter als Dateinamen aufnimmt. Bei falschen Parametern Abbruch
+# while loop to grab parameters
 while [ "$1" != '' ]
 do
 	case $1 in
@@ -15,8 +14,10 @@ do
 		-s) shift; s=true;;
 		-d) shift; d=true;;
 		*)  if [[ $1 != -* ]] ; then
+				# grab file names
 				files+=($1);
 			else
+				# exit on wrong parameter
 				echo Unbekannte Option $1
 				exit
 			fi;
@@ -24,7 +25,7 @@ do
 	esac
 done
 
-# Durchläuft alle Elemente und Filtert alle nichtexistenten Dateien heraus
+# loops through all elements and removes non-existent ones
 for i in "${!files[@]}"
 do
 	if [ ! -f "${files[$i]}" ] ; then
@@ -33,7 +34,7 @@ do
 	fi
 done
   
-# prüft ob Dateien vorhanden sind
+# checks if we have at least one file 
 if [ ${#files[@]} == 0 ] ; then
 	echo Keine Dateien vorhanden.;
 	exit;
