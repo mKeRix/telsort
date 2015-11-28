@@ -41,7 +41,7 @@ fi
 
 # output header
 echo "Telefonlistenskript WI-14C"
-echo "Matrikelnr.: 622424"
+echo "Matrikelnr.: 622424, 675704, 671137"
 
 # explicitly declare associative array (implicit doesn't work)
 declare -A content
