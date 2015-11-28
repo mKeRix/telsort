@@ -1,3 +1,6 @@
 #!/bin/bash
 
-echo "Hello World!"
+a=true
+s=true
+d=true
+files=(null)
