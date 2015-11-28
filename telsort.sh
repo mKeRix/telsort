@@ -1,9 +1,49 @@
 #!/bin/bash
-
+#Variablen deklarieren und auf false setzen
+#Files-Array zur Sammlung der Dateinamen
+declare a
 a=false
-s=true
-d=true
-files=('Controlling' 'Vorstand' 'Service')
+declare s
+s=false
+declare d
+d=false 
+declare -a files
+
+#While-Schleife, die alle Parameter nach -a, -s oder -d absucht und ansonsten den Parameter als Dateinamen aufnimmt. Bei falschen Parametern Abbruch
+while [ "$1" != '' ]
+ do
+   case $1 in
+    -a) shift; a=true;;
+    -s) shift; s=true;;
+    -d) shift; d=true;;
+     *) if [[ $1 != -* ]] ; then
+           files+=($1);
+         else
+          echo Unbekannte Option $1
+          exit
+         fi;
+         
+         shift;;
+    esac
+ done
+
+ #Durchläuft alle Elemente und Filtert alle nichtexistenten Dateien heraus
+ for i in "${!files[@]}"
+  do
+   if [ ! -f "${files[$i]}" ] ; then
+   echo "${files[$i]} existiert nicht"
+    unset files[i];
+   fi
+  done
+  
+  #prüft ob Dateien vorhanden sind
+ if [ ${#files[@]} == 0 ] ; then
+   echo Keine Dateien vorhanden.;
+   exit;
+ fi
+
+
+
 
 # output header
 echo "Telefonlistenskript WI-14C"
