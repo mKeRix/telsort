@@ -27,6 +27,12 @@ if [ "$a" = true ]
 		all=${all:1}
 		sorted=$(echo "$all"|sort -k1 -k2)
 		
+		if [ "$d" = true ]
+			then
+				# sort into two columns
+				sorted=$(echo "$sorted"|column)
+		fi
+		
 		if [ "$s" = true ]
 			then
 				# output to console
@@ -47,6 +53,12 @@ if [ "$a" = true ]
 		do
 			# sort single file
 			sorted_array[$i]=$(echo "${content[$i]}"|sort -k1 -k2)
+			
+			if [ "$d" = true ]
+			then
+				# sort into two columns
+				sorted_array[$i]=$(echo "${sorted_array[$i]}"|column)
+			fi
 			
 			if [ "$s" = true ]
 				then
